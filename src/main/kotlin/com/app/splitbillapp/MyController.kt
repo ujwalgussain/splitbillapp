@@ -103,13 +103,13 @@ class MyController(
         return ResponseEntity(responseJSON.toString(),HttpStatus.OK)
 
     }
-    /*@PostMapping("/user/settle")
+    @PostMapping("/user/settle")
     fun settleDue(@RequestBody requestBody: String) :ResponseEntity<String>
     {
         //rq structure will be same except for the fact we just double the amt and split users are the lender and borrower
         logger.info("Recieved RQ - $requestBody")
         billService.settleDue(JSONObject(requestBody))
         return ResponseEntity<String>(ResponseUtilities.createApiSuccessResponseJSON().toString(),HttpStatus.OK)
-    }*/
+    }
 
 }

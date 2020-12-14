@@ -19,6 +19,7 @@ object MyConstants {
     val SPLIT_USER="split_users"
     val PAY_DETAILS="payDetails"
     val TOTAL_AMOUNT="totalAmount"
+    val BILL_DESC="billDescription"
 
     val SUCESS = "SUCESS"
     val FAILED = "FAILED"

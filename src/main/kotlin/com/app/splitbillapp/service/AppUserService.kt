@@ -36,13 +36,7 @@ class AppUserService(
             logger.error("User Creation Failed. Unable to Parse JSON")
             throw e
         }
-          userRepository.save(AppUser(id = 0,
-              userName = rq_json.getString(MyConstants.USER_NAME),
-              firstName = rq_json.getString(MyConstants.FIRST_NAME),
-              email = rq_json.getString(MyConstants.EMAIL),
-              lastName = rq_json.getString(MyConstants.LAST_NAME),
-              contactNo = rq_json.getString(MyConstants.CONTACT)
-              ))
+          userRepository.save(appUser)
     }
     fun findAppUserById(id: Int) : AppUser = userRepository.findById(id).get()
 

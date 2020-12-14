@@ -37,6 +37,7 @@ class BillService(
     {
         val paidByUser:AppUser = userService.findAppUserById(rqJSON.getInt(MyConstants.PAID_BY))
         val amt:Int = rqJSON.getInt(MyConstants.AMT)
+        val desc:String = rqJSON.getString(MyConstants.BILL_DESC)
         if(paidByUser == null)
             throw HttpClientErrorException(HttpStatus.BAD_REQUEST,"Cannot Create Bill. User Not Found.")
         logger.info("Paid By User Found $paidByUser")
@@ -46,7 +47,8 @@ class BillService(
         val bill:Bill = Bill(amount = amt,
                         paidBy = paidByUser,
                         splits = splits,
-                        id =0
+                        id =0,
+                        billDescription = desc
                         )
         for(split in splits)
         {
@@ -74,8 +76,8 @@ class BillService(
     {
         val settlementDetails:JSONObject = rqJSON.getJSONObject(MyConstants.SETTLEMENT_DETAILS)
         settlementDetails.put(MyConstants.AMT,settlementDetails.getInt(MyConstants.AMT)*2)
-
-       // addBill(settlementDetails)
+        settlementDetails.put(MyConstants.BILL_DESC,"SETTLEMENT")
+       addBill(settlementDetails)
 
     }
 }
