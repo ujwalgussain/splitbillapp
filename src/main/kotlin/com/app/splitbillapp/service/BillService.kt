@@ -67,7 +67,7 @@ class BillService(
             throw HttpClientErrorException(HttpStatus.BAD_REQUEST,"bill not found",
                 ResponseUtilities.createApiFailureResponseJSON("bill Not found in the DB").toString().toByteArray(),
                 Charset.defaultCharset())
-        return objectMapper.writeValueAsString(bill)
+        return objectMapper.writeValueAsString(bill.get())
     }
 
     fun settleDue(rqJSON:JSONObject)

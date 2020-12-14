@@ -15,7 +15,9 @@ data class BalanceSheet(
     @JoinColumn( name="borrower")
     val borrower:AppUser = AppUser(),
     @Column
-    var amount:Int = 0 )
+    var amount:Int = 0
+//OneToOne groupid
+)
 
 
 

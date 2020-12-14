@@ -80,7 +80,7 @@ class MyController(
     @GetMapping("/bill/get/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getBill(@PathVariable id:Int) :ResponseEntity<String>
     {
-        /*Expects the bill Id should be valid*/
+        /*Assumes the A valid bill id would be given from ui*/
         logger.info("Recieved RQ for get bill with ID with id $id")
         val responseJSONStr:String = billService.getBill(id)
         logger.info("Response Generated $responseJSONStr")

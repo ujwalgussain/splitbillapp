@@ -15,4 +15,5 @@ data class Bill(
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "splitID")
     val splits:List<Split>? = null
+//OneToOne groupId
 )
