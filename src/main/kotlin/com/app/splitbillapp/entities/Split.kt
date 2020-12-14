@@ -6,10 +6,10 @@ import javax.persistence.*
 data class Split(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id:Int,
+    val id:Int = 0,
     @Column
-    val splitAmt:Int,
+    val splitAmt:Int = 0,
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userID" )
-    val appUser:AppUser
+    val appUser:AppUser = AppUser()
 )

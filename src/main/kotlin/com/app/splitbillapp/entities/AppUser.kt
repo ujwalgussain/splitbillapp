@@ -7,31 +7,33 @@ import javax.persistence.*
 data class AppUser(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id:Int,
+    val id:Int = 0,
 
     @Column
-    val userName: String,
+    val userName: String = "",
 
     @Column
     val createdAt:LocalDateTime = LocalDateTime.now(),
 
     @Column
-    val firstName:String,
+    val firstName:String = "",
 
     @Column
-    val lastName:String,
+    val lastName:String = "",
 
    @Column(unique = true)
-    val email:String,
+    val email:String = "",
 
     @Column(unique = true)
-    val contactNo:String,
+    val contactNo:String = "",
 
     @OneToMany
     @JoinColumn(name = "balancesheetid")
     val balanceSheetEntries: List<BalanceSheet>?= null
 
-){}
+){
+
+}
 /*
 data class Group(
     @Id

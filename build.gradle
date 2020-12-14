@@ -49,6 +49,15 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20201115'
 
 
+    // https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
+    compile group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+
+
+
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile('org.springframework.boot:spring-boot-starter-test') {

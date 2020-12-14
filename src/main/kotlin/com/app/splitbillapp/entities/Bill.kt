@@ -6,13 +6,13 @@ import javax.persistence.*
 data class Bill(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id:Int,
+    val id:Int = 0,
     @Column
-    val amount:Int,
-    @OneToOne
+    val amount:Int = 0,
+    @OneToOne()
     @JoinColumn( name = "userID")
-    val paidBy:AppUser,
-    @OneToMany
+    val paidBy:AppUser = AppUser(),
+    @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "splitID")
-    val splits:List<Split>
+    val splits:List<Split>? = null
 )

@@ -3,12 +3,16 @@ package com.app.splitbillapp.entities
 import javax.persistence.*
 
 @Entity
+@Table(uniqueConstraints = arrayOf(UniqueConstraint(columnNames = ["sheetOwner","owesUser"])))
 data class BalanceSheet(
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    val id:Int,
+    val id:Int = 0,
     @OneToOne
-    @JoinColumn( name="owes_userID")
-    val owes_user:AppUser,
+    @JoinColumn( name="sheetOwner")
+    val sheetOwner:AppUser = AppUser(),
+    @OneToOne
+    @JoinColumn( name="owesUser")
+    val owesUser:AppUser = AppUser(),
     @Column
-    val amount:Int)
+    var amount:Int = 0 )
