@@ -21,5 +21,7 @@ object ResponseUtilities {
 
     fun createApiFailureResponseJSON(reason:String) : JSONObject = createApiResponseJSON(MyConstants.FAILED,reason)
 
+    fun createApiSuccessResponseJSON() : JSONObject = createApiResponseJSON(MyConstants.SUCESS,null)
+
 
 }

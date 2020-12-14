@@ -69,4 +69,13 @@ class BillService(
                 Charset.defaultCharset())
         return objectMapper.writeValueAsString(bill)
     }
+
+    fun settleDue(rqJSON:JSONObject)
+    {
+        val settlementDetails:JSONObject = rqJSON.getJSONObject(MyConstants.SETTLEMENT_DETAILS)
+        settlementDetails.put(MyConstants.AMT,settlementDetails.getInt(MyConstants.AMT)*2)
+
+       // addBill(settlementDetails)
+
+    }
 }

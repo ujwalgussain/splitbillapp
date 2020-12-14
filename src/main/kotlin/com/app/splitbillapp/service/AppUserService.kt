@@ -10,6 +10,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.client.HttpClientErrorException
+import java.lang.RuntimeException
+import java.util.*
 
 @Service
 class AppUserService(
@@ -43,6 +46,41 @@ class AppUserService(
     }
     fun findAppUserById(id: Int) : AppUser = userRepository.findById(id).get()
 
+    fun updateUser(rq_json: JSONObject)
+    {
+        val userID = rq_json.getInt(MyConstants.USER_ID)
+        val record:Optional<AppUser> = userRepository.findById(userID)
+        if(record.isEmpty)
+            throw RuntimeException("Invalid User ID")
+        val appUser:AppUser = record.get()
+        val newValue:String = rq_json.getString(MyConstants.NEW_VALUE)
+        when(rq_json.getString(MyConstants.FIELD))
+        {
+            MyConstants.USER_NAME -> {
+                appUser.userName = newValue
+            }
+            MyConstants.FIRST_NAME -> {
+                appUser.firstName = newValue
+            }
+            MyConstants.LAST_NAME ->
+            {
+                appUser.lastName = newValue
+            }
+            MyConstants.EMAIL -> {
+                appUser.email = newValue
+            }
+            MyConstants.CONTACT ->
+            {
+                appUser.contactNo = newValue
+            }
+            else ->{
+                val msg:String = "Invalid Field for Update"
+                logger.info(msg)
+                throw RuntimeException(msg)
+            }
+        }
+        userRepository.save(appUser)
+    }
     fun deleteUser(id:Int)
     {
         userRepository.deleteById(id)

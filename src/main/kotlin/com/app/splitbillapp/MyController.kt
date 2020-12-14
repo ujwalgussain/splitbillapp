@@ -1,5 +1,6 @@
 package com.app.splitbillapp
 
+import com.app.splitbillapp.entities.AppUser
 import com.app.splitbillapp.service.AppUserService
 import com.app.splitbillapp.service.BalanceSheetService
 import com.app.splitbillapp.service.BillService
@@ -47,6 +48,7 @@ class MyController(
         //find record
         //replace
         //appUserService.createUser(JSONObject(requestBody))
+        appUserService.updateUser(JSONObject(requestBody))
         return ResponseUtilities.createApiResponseEntity(MyConstants.SUCESS,null,HttpStatus.OK)
     }
 
@@ -67,7 +69,7 @@ class MyController(
     fun createBill(@RequestBody requestBody: String) :  ResponseEntity<String>
     {
         logger.info(String.format("Recieved RQ for Bill Creation - %s",requestBody))
-        billService.addBill(JSONObject(requestBody))
+        billService.addBill(JSONObject(requestBody).getJSONObject(MyConstants.BILL_DETAILS))
         logger.info("Bill Added Successfully")
         return ResponseUtilities.createApiResponseEntity(MyConstants.SUCESS,null,HttpStatus.OK)
     }
@@ -85,24 +87,29 @@ class MyController(
         return ResponseEntity(responseJSONStr,HttpStatus.OK)
     }
 
-    @GetMapping("/user/getIndividual/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAllDues(@PathVariable id:Int) :ResponseEntity<String>
+    @GetMapping("/user/getAllDues/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getAllDues(@PathVariable id:String) :ResponseEntity<String>
     {
         logger.info("Recieved RQ for findAllDues for User with id $id")
-        val responseJSON:JSONObject = balanceSheetService.getAllDues(id)
+        val responseJSON:JSONObject = balanceSheetService.getAllDues(Integer.parseInt(id))
         logger.info("Response Generated $responseJSON")
         return ResponseEntity(responseJSON.toString(),HttpStatus.OK)
     }
 
-    /*@GetMapping("/user/getTotalDue/{id}")
-    fun getTotalDue(@PathVariable id:Int) :ResponseEntity<String>
+    @PostMapping("/user/getDuesforUsers")
+    fun getDuesBetweenUser(@RequestBody requestBody: String) :ResponseEntity<String>
     {
-        //Get
-    }*/
+        val responseJSON = balanceSheetService.getDuesBetweenUser(JSONObject(requestBody))
+        return ResponseEntity(responseJSON.toString(),HttpStatus.OK)
 
-    fun settleDue()
-    {
-        TODO()
     }
+    /*@PostMapping("/user/settle")
+    fun settleDue(@RequestBody requestBody: String) :ResponseEntity<String>
+    {
+        //rq structure will be same except for the fact we just double the amt and split users are the lender and borrower
+        logger.info("Recieved RQ - $requestBody")
+        billService.settleDue(JSONObject(requestBody))
+        return ResponseEntity<String>(ResponseUtilities.createApiSuccessResponseJSON().toString(),HttpStatus.OK)
+    }*/
 
 }

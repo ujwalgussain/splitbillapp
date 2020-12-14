@@ -10,26 +10,22 @@ data class AppUser(
     val id:Int = 0,
 
     @Column
-    val userName: String = "",
+    var userName: String = "",
 
     @Column
-    val createdAt:LocalDateTime = LocalDateTime.now(),
+    var createdAt:LocalDateTime = LocalDateTime.now(),
 
     @Column
-    val firstName:String = "",
+    var firstName:String = "",
 
     @Column
-    val lastName:String = "",
+    var lastName:String = "",
 
    @Column(unique = true)
-    val email:String = "",
+    var email:String = "",
 
     @Column(unique = true)
-    val contactNo:String = "",
-
-    @OneToMany
-    @JoinColumn(name = "balancesheetid")
-    val balanceSheetEntries: List<BalanceSheet>?= null
+    var contactNo:String = "",
 
 ){
 
